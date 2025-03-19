@@ -1,0 +1,30 @@
+rac3 part 2
+
+switch 1/2/3
+conf t
+int vlan 1
+ip address [          ][submask]
+no shutdown
+ip default-gateway{   }
+
+dog secret cat
+line console 0
+password compass
+login
+
+ip domain-name ccnasecurity. com
+username dog secret cat
+line vty 0 4
+login local
+crypto key generate rsa [1024]
+
+
+//Router
+en
+conf t
+access-list 199 permit tcp 10.101.117.32 0.0.0.15 10.101.117.0 0.0.0.31 eq 22
+access-list 199 permit icmp any any
+int generateEthernet 0/2
+ip access-group 199 out 
+
+[to check cmd ssh-L dog [IP address]]
