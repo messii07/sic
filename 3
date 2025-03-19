@@ -1,0 +1,16 @@
+practical 3 (part-1)
+access-list 100 permit tcp 172.22.34.64 0.0.0.31 host 172.22.34.62 eq ftp
+access-list 100 permit icmp 172.22.34.64 0.0.0.31 host 172.22.34.62 eq ftp
+interface gigabitEthernet 0/0
+ip access-group 100 in
+
+PC1->FTP 172.22.34.62
+
+access-list extended HTTP_ONLY
+permit tcp 172.22.34.96 0.0.0.15 host 172.22.34.62 eq www
+permit icmp 172.22.34.96 0.0.0.15 host 172.22.34.62 
+
+interface gigabitEthernet 0/1
+access-group HTTP_ONLY in
+
+PC2->Browser URL 172.22.34.62
