@@ -1,0 +1,38 @@
+practical 2
+
+router ospf 1/2/3
+network 192.168.1.0 0.0.0.255 area 0
+
+R1
+conf t
+username dog secret cat
+aaa new-model
+aaa authentication login default local
+line console 0
+login authentication login default local
+IP domain-name ccnasecurity.com
+crypto key generate rsa
+aaa authentication login SSH-LOGIN local
+line vty 0 4
+login authentication SSH-LOGIN
+transport input ssh
+
+PC: ssh -L dog 192.168.1.1
+
+R2
+Server [services aaa inup]
+username dog secret cat
+aaa new-model
+aaa authentication login default group tacacs+ local
+line console 0
+login authentication default
+end
+
+R3
+Server [services aaa inup]
+username dog secret cat
+aaa new-model
+aaa authentication login default group radius+ local
+line console 0
+login authentication default
+end
